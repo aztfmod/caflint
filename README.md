@@ -1,6 +1,6 @@
 # caflint [![CI](https://github.com/hattan/caflint/actions/workflows/ci.yml/badge.svg)](https://github.com/hattan/caflint/actions/workflows/ci.yml)
 
-caflint is a linter that can validate configurations for the [Cloud Adoption Framework for Azure landing zones on Terraform (caf)]()https://github.com/Azure/caf-terraform-landingzones
+caflint is a linter that can validate configurations for the [Cloud Adoption Framework for Azure landing zones on Terraform (caf)](https://github.com/Azure/caf-terraform-landingzones)
 
 CAF uses .tfvars configuration files to define resources to deploy on Azure. Caflint valies that the tfvars file is syntactically correct and also ensures that configurations in the file are valid inputs for the specified landing zone.
 

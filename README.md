@@ -64,6 +64,11 @@ The following options can be passed into caflint. These can be used with the .ca
   
   Example: `caflint -var-folder .caf/configs/networking`
 
+* `-show-all`
+  Lists all possible configurations for the given landing zone.
+  
+  Example: `caflint -var-folder .caf/configs/networking -show-all`  
+
 If a a .caflint.hcl file exists, the configurations will be loaded from there first, but options passed in via the cli will always take precedence. 
 
 It is also possible to pas sin both -lz and -var-folder without a .caflint.hcl file.

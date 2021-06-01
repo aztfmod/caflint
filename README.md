@@ -66,7 +66,7 @@ The following options can be passed into caflint. These can be used with the .ca
 
 * `-show-all`
   Lists all possible configurations for the given landing zone.
-  
+
   Example: `caflint -var-folder .caf/configs/networking -show-all`  
 
 If a a .caflint.hcl file exists, the configurations will be loaded from there first, but options passed in via the cli will always take precedence. 
@@ -93,7 +93,7 @@ or directly using `go test ./... -v`
 
 ## Return Codes
 
-caflint uses specific return codes to indicate different fail conditions. Please see [lint/return_codes.go](return_codes.go)
+caflint uses specific return codes to indicate different fail conditions. Please see [return_codes.go](lint/return_codes.go)
 
 | Code      | Constant | Description
 | ---------------- | -------- |------------

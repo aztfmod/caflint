@@ -66,3 +66,24 @@ PATH=$PATH:$(pwd)/bin
 ```
 
 This will build an `caflint` executable in the bin directory.
+
+## Running Tests
+
+From the root of the repo tests can be invoked via the make file and `make test`
+
+or directly using `go test ./... -v`
+
+## Return Codes
+
+caflint uses specific return codes to indicate different fail conditions. Please see [lint/return_codes.go](return_codes.go)
+
+| Code      | Constant | Description
+| ---------------- | -------- |------------
+| 0 | SUCCESS | Linting passed, all paths are valid
+| 1 | LINT_ERROR | Paths are valid, but there are caf lint errors
+| 2 | FILE_OR_FOLDER_NOT_FOUND | Invalid path, usually the landingzone or configuration path
+| 3 | INVALID_FILE_FORMAT | A file it nor formatted correctly
+| 4 | INVALID_TFVARS_SYNTAX | one of the .tvfars file is malformed
+| 5 | INVALID_VARIABLE_FILE_SYNTAX | One of the variables.*.tf files in the landing zone is malformed
+| 6 | NO_TFVARS_FOUND | No files with a .tfvars extension found in the config path
+| 7 | NO_VARIABLE_FILES_FOUND | No files with the format variables.*.tf found in the landing zone path

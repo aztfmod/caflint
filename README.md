@@ -4,6 +4,16 @@ caflint is a linter that can validate configurations for the [Cloud Adoption Fra
 
 CAF uses .tfvars configuration files to define resources to deploy on Azure. Caflint valies that the tfvars file is syntactically correct and also ensures that configurations in the file are valid inputs for the specified landing zone.
 
+## Demo
+
+* linting:
+  
+  <img src="media/caflint-demo.gif" width="650"/> <br/> <br/>
+
+
+* Show all available configuration options:
+  
+  <img src="media/caf-lint-showall.gif" width="650"/>
 
 ## Prerequisites
 

@@ -15,4 +15,5 @@ caflint
 .bin
 bin
 .caflint.hcl
+!testharness/.caflint.hcl
 .caf

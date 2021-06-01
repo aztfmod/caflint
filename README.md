@@ -4,6 +4,12 @@ caflint is a linter that can validate configurations for the [Cloud Adoption Fra
 
 CAF uses .tfvars configuration files to define resources to deploy on Azure. Caflint valies that the tfvars file is syntactically correct and also ensures that configurations in the file are valid inputs for the specified landing zone.
 
+## Installation
+
+```go
+go install github.com/aztfmod/caflint@latest 
+```
+
 ## Demo
 
 * linting:
@@ -63,10 +69,7 @@ If a a .caflint.hcl file exists, the configurations will be loaded from there fi
 It is also possible to pas sin both -lz and -var-folder without a .caflint.hcl file.
 
 Example: `caflint -lz .caf/landingzone/caf_solution -var-folder .caf/configs/networking`
-## Installation
 
-* Prebuilt Releases and Docker images coming soon.
-* Build from source (see next section).
 
 ## Building
 

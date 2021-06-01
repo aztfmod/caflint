@@ -42,7 +42,7 @@ func ShowAll(logger *log.Logger, exiter *Exiter, landingZonePath string) {
 
 }
 
-func CafLint(logger *log.Logger, exiter *Exiter, landingZonePath string, configPath string) bool {
+func CafLint(logger *log.Logger, exiter *Exiter, landingZonePath string, configPath string) {
 	lintErrors = make([]string, 0)
 	variables, err := loadLandingZoneVariables(logger, landingZonePath)
 	if err != nil {
@@ -68,11 +68,10 @@ func CafLint(logger *log.Logger, exiter *Exiter, landingZonePath string, configP
 			for _, error := range lintErrors {
 				printError(logger, error)
 			}
-			exiter.Exit(1)
+			exiter.Exit(LINT_ERROR)
 		}
 	}
 
-	return true
 }
 
 func pluralString(size int) string {

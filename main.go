@@ -13,6 +13,7 @@ var cafLintconfig string = "./.caflint.hcl"
 
 func main() {
 	logger := log.New(os.Stderr, "", 0)
+	exiter := lint.NewExiter(os.Exit)
 
 	lzPath := flag.String("lz", "", "path to the landing zone")
 	configPath := flag.String("var-folder", "", "path to caf configs")
@@ -41,8 +42,8 @@ func main() {
 	if *showAll {
 		fmt.Printf("Landing Zone: %s\n", landingZonePath)
 		fmt.Printf("Available Configurations:\n-------------------------\n")
-		lint.ShowAll(logger, landingZonePath)
+		lint.ShowAll(logger, exiter, landingZonePath)
 	} else {
-		lint.CafLint(logger, landingZonePath, configurationPath)
+		lint.CafLint(logger, exiter, landingZonePath, configurationPath)
 	}
 }

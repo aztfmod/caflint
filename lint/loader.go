@@ -40,11 +40,11 @@ var mapSchema = &hcl.BodySchema{
 	},
 }
 
-func loadLandingZoneVariables(logger *log.Logger, landingZonePath string) ([]Variable, error) {
+func loadLandingZoneVariables(logger *log.Logger, landingZonePath string) ([]Variable, *LintError) {
 	var variables []Variable
 	files, err := ioutil.ReadDir(landingZonePath)
 	if err != nil {
-		return nil, fmt.Errorf("cannot read lz path\nmessage:%s", err)
+		return nil, NewLintError(FILE_OR_FOLDER_NOT_FOUND, "cannot read lz path\nmessage:%s", err)
 	}
 
 	foundVariablesConfig := false
@@ -57,13 +57,13 @@ func loadLandingZoneVariables(logger *log.Logger, landingZonePath string) ([]Var
 			foundVariablesConfig = true
 			vars, err := parseVariableFile(logger, filePath)
 			if err != nil {
-				return nil, err
+				return nil, NewLintError(INVALID_VARIABLE_FILE_SYNTAX, "%v", err)
 			}
 			variables = append(variables, vars...)
 		}
 	}
 	if !foundVariablesConfig {
-		return nil, fmt.Errorf("landing zone error: no variables.*.tf files found in path %s", landingZonePath)
+		return nil, NewLintError(NO_VARIABLE_FILES_FOUND, "landing zone error: no variables.*.tf files found in path %s", landingZonePath)
 	}
 	return variables, nil
 }
@@ -96,13 +96,13 @@ func parseVariableFile(logger *log.Logger, variablesFilePath string) ([]Variable
 	return variables, nil
 }
 
-func LoadConfigs(logger *log.Logger, configFilePath string) (map[string]Config, error) {
+func LoadConfigs(logger *log.Logger, configFilePath string) (map[string]Config, *LintError) {
 	var configurations map[string]Config
 	configurations = make(map[string]Config)
 
 	files, err := ioutil.ReadDir(configFilePath)
 	if err != nil {
-		return nil, fmt.Errorf("cannot read config path\nmessage:%s", err)
+		return nil, NewLintError(FILE_OR_FOLDER_NOT_FOUND, "cannot read config path\nmessage:%s", err)
 	}
 
 	foundVars := false
@@ -115,12 +115,12 @@ func LoadConfigs(logger *log.Logger, configFilePath string) (map[string]Config, 
 			foundVars = true
 			configurations, err = parseConfigFile(filePath, configurations)
 			if err != nil {
-				return nil, err
+				return nil, NewLintError(INVALID_TFVARS_SYNTAX, "cannot read config path\nmessage:%s", err)
 			}
 		}
 	}
 	if !foundVars {
-		return nil, fmt.Errorf("- No .tfvars files found in path %s", configFilePath)
+		return nil, NewLintError(NO_TFVARS_FOUND, "No .tfvars found in path %s", configFilePath)
 	}
 	return configurations, nil
 }

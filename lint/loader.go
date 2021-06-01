@@ -154,7 +154,7 @@ func parseConfigFile(filename string, configurations map[string]Config) (map[str
 func ParseCafLintFile(filename string) (*CafConfig, error) {
 	fileBytes, err := ioutil.ReadFile(filename)
 	if err != nil {
-		return nil, nil
+		return nil, fmt.Errorf("file Not found %s", filename)
 	}
 
 	file, diags := hclsyntax.ParseConfig(fileBytes, filename, hcl.Pos{Line: 1, Column: 1})

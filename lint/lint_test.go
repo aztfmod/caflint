@@ -352,3 +352,44 @@ func TestCafLintLZFolderWithInvalidTFFiles(t *testing.T) {
 	assert.Equal(t, expected, buf.String())
 	assert.Equal(t, INVALID_VARIABLE_FILE_SYNTAX, exiter.statusCode)
 }
+
+func TestParseCafLintFileWithValidFile(t *testing.T) {
+	//arrange
+	cafLintconfig := "../testharness/.caflint.hcl"
+	//act
+	config, _ := ParseCafLintFile(cafLintconfig)
+
+	//assert
+	assert.Equal(t, "./config/valid", config.ConfigPath)
+	assert.Equal(t, "./tf", config.LandingZonePath)
+}
+
+func TestParseCafLintFileWithInValidFilePath(t *testing.T) {
+	//arrange
+	cafLintconfig := "../testharness/.caflint.invalid.hcl"
+	//act
+	_, err := ParseCafLintFile(cafLintconfig)
+
+	//assert
+	assert.Equal(t, "file Not found ../testharness/.caflint.invalid.hcl", err.Error())
+}
+
+func TestParseCafLintFileWithInValidFileFormat(t *testing.T) {
+	//arrange
+	cafLintconfig := "../testharness/.invalid.syntax.hcl"
+	//act
+	_, err := ParseCafLintFile(cafLintconfig)
+
+	//assert
+	assert.Equal(t, "[../testharness/.invalid.syntax.hcl:3,38-38: Unterminated template string; No closing marker was found for the string.]", err.Error())
+}
+
+func TestParseCafLintFileWithExtraPropertiesIsNotAllowed(t *testing.T) {
+	//arrange
+	cafLintconfig := "../testharness/.extraProperties.hcl"
+	//act
+	_, err := ParseCafLintFile(cafLintconfig)
+
+	//assert
+	assert.Equal(t, "[../testharness/.extraProperties.hcl:4,3-6: Unsupported argument; An argument named \"foo\" is not expected here.]", err.Error())
+}

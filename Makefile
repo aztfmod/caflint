@@ -2,7 +2,7 @@ build:
 	go build -o bin/caflint
 
 test:
-	go test ./...
+	go test ./... -v -cover
 
 cover:
 	go test ./... -coverprofile=coverage.out	
